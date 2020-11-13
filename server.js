@@ -55,7 +55,8 @@ app.get('/', async(req, res, next)=> {
                     </select>
 
 
-
+                <input type = 'text' name='count' />
+                <input type = 'text' name='date' />
 
                 <button>Save</button>
                 </form>
