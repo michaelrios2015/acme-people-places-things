@@ -34,7 +34,7 @@ const Thing = conn.define('thing', {
 const Purchase = conn.define('purchase', {
     count: {
         type: INTEGER,
-        allowNull: false,
+        //allowNull: false,
         //unique: true
     }
     ,
@@ -46,9 +46,16 @@ const Purchase = conn.define('purchase', {
     
 });
 
+//this sticks a foriegn key into  Purchase
 Purchase.belongsTo(People);
 Purchase.belongsTo(Place);
 Purchase.belongsTo(Thing);
+
+//this does not change the tables but seems to be a way of joining (left outer join..because )the tables in sql
+//I mean you should be able to do it without it but makes it easier
+People.hasMany(Purchase);
+Place.hasMany(Purchase);
+Thing.hasMany(Purchase);
 
 const syncAndSeed = async()=> {
     await conn.sync({ force: true});
@@ -67,5 +74,12 @@ const syncAndSeed = async()=> {
 }
 
 module.exports = {
-    syncAndSeed
+    syncAndSeed,
+    //models just sequeilize way of saying table??
+    models: { 
+        People,
+        Place,
+        Thing,
+        Purchase
+    }
 };
